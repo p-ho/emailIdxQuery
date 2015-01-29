@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<!--
+//
+//    emailIdxQuery - A front-end for searching in emails synchronized by emailIdx
+//    Copyright (C) 2015 Paul Hofmann
+//
+//    This program is free software: you can redistribute it and/or modify
+//    it under the terms of the GNU General Public License as published by
+//    the Free Software Foundation, either version 3 of the License, or
+//    (at your option) any later version.
+//
+//    This program is distributed in the hope that it will be useful,
+//    but WITHOUT ANY WARRANTY; without even the implied warranty of
+//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//    GNU General Public License for more details.
+//
+//    You should have received a copy of the GNU General Public License
+//    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+//
+-->
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+        <title>emailidxQuery</title>
+        <link rel="stylesheet" type="text/css" href="styles/main.css" />
+        <!-- JS: Libraries -->
+        <script type="application/javascript" src="js/libs/jquery.min.js"></script>
+        <script type="application/javascript" src="js/libs/jquery-ui.min.js"></script>
+        <script type="application/javascript" src="js/libs/jquery.base64.min.js"></script>
+        <script type="application/javascript" src="js/libs/elasticsearch.jquery.min.js"></script>
+        <!-- JS: Application -->
+        <script type="application/javascript" src="js/app/email.js"></script>
+        <script type="application/javascript" src="js/app/settingsstorage.js"></script>
+        <script type="application/javascript" src="js/app/doctemplates.js"></script>
+        <script type="application/javascript" src="js/app/elasticadapter.js"></script>
+        <script type="application/javascript" src="js/app/tiles.js"></script>
+        <script type="application/javascript" src="js/app/emailidxquery.js"></script>
+    </head>
+    <body>
+        <div id="header">
+            <div id="settingsBar">
+                <img id="settingsLink" title="Settings" src="img/ico_settings.svg" />
+            </div>
+            <h1 id="headerTitle">
+                emailIdxQuery
+            </h1>
+            <form id="searchForm">
+                <span id="esFulltextSearchCotainer">
+                    <input type="text" id="esFulltextSearchterm" placeholder="search term" />
+                    <input type="submit" id="esSearchSubmit" class="basicButton" value="Search" />
+                </span>
+            </form>
+        </div>
+        <div id="tilesDiv" class="tilesInRows">
+            <div id="activateJSMessage">
+                Please activate JavaScript.
+            </div>
+        </div>
+        <footer id="footer">
+            Author: Paul Hofmann &nbsp;&nbsp;//&nbsp;&nbsp;
+            [<span id="footerLicensesLink">about</span>]
+        </footer>
+
+        <!-- BEGIN HIDDEN CONTENT -->
+        <section id="hiddenContent">
+
+            <form id="settingsForm" data-templateid="settingsForm">
+                <p class="tileCaption">
+                    Settings
+                </p>
+                <p>
+                    <span class="keyHighlight">Elasticsearch host:</span> <br />
+                    <input id="esHost" title="hostname of Elasticsearch server" type="text" placeholder="hostname" /> :
+                    <input id="esPort" title="port of Elasticsearch server" type="number" placeholder="port" min="1" max="65535" />
+                </p>
+                <p>
+                    <span class="keyHighlight">Layout:</span> <br />
+                    <input type="radio" id="layoutInRows" name="layoutFormat" value="inRows">
+                    <label for="layoutInRows">in rows</label><br />
+                    <input type="radio" id="layoutInColumns" name="layoutFormat" value="inColumns">
+                    <label for="layoutInColumns">in one single column</label><br />
+                </p>
+                <p>
+                    <input id="btnSettingsOk" type="button" class="basicButton" value="OK" />
+                    <input id="btnSettingsCancel" type="button" class="basicButton" value="Cancel" />
+                </p>
+
+            </form>
+
+            <div data-templateid="aboutTileContainer">
+                <p class="tileCaption">
+                    About
+                </p>
+                <p class="tileCommonText">
+                    emailIdxQuery  Copyright (C) 2015  Paul Hofmann
+                </p>
+                <p class="tileCommonText">
+                    This program comes with ABSOLUTELY NO WARRANTY.<br />
+                    This is free software, and you are welcome to redistribute it
+                    under certain conditions.<br />
+                    For details refer to the
+                    <a href="http://opensource.org/licenses/GPL-3.0" target="_blank">GNU General Public License, version 3</a>.
+                </p>
+                <p class="tileSubCaption">
+                    Third-party libraries
+                </p>
+                <ul class="tileCommonText">
+                    <li>
+                        <a href="http://jquery.com/" target="_blank">
+                            JQuery
+                        </a>
+                        under
+                        <a href="https://github.com/jquery/jquery/blob/master/LICENSE.txt" target="_blank">
+                            The MIT license
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="http://jqueryui.com/" target="_blank">
+                            JQuery UI
+                        </a>
+                        under
+                        <a href="https://github.com/jquery/jquery-ui/blob/master/LICENSE.txt" target="_blank">
+                            The MIT license
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="https://github.com/elasticsearch/elasticsearch-js" target="_blank">    
+                            elasticsearch.js
+                        </a>
+                        under
+                        <a href="https://github.com/elasticsearch/elasticsearch-js/blob/master/LICENSE" target="_blank">
+                            Apache License, Version 2.0
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="https://github.com/carlo/jquery-base64" target="_blank">
+                            JQuery-Base64
+                        </a>
+                        under
+                        <a href="https://github.com/carlo/jquery-base64/blob/master/jquery.base64.js" target="_blank">
+                            The MIT License
+                        </a>
+                    </li>
+                </ul>
+                <p class="tileSubCaption">
+                    Third-party graphics
+                </p>
+                <ul class="tileCommonText">
+                    <li>
+                        <a href="http://commons.wikimedia.org/wiki/Category:VisualEditor_icons" target="_blank">
+                            VisualEditor Icons
+                        </a>
+                        under
+                        <a href="https://git.wikimedia.org/blob/mediawiki%2Fextensions%2FVisualEditor.git/0458bd4be34247aa97eea95c98a404859d282703/LICENSE.txt" target="_blank">
+                            The MIT License
+                        </a>
+                    </li>
+
+                    <li>
+                        "Save font awesome" from 
+                        <a href="http://fortawesome.github.io/Font-Awesome/" target="_blank">
+                            Font Awesome by Dave Gandy
+                        </a>
+                        under
+                        <a href="http://creativecommons.org/licenses/by-sa/3.0/deed.en" target="_blank">
+                            CC BY-SA 3.0
+                        </a>
+                    </li>
+
+                    <li>
+                        Loading bars from 
+                        <a href="http://www.ajaxload.info/" target="_blank">
+                            ajaxload.info
+                        </a>
+                        under 
+                        <a href="http://www.wtfpl.net/" target="_blank">
+                            WTFPL
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div data-templateid="loadingContainer">
+                Loading... <br />
+                <img src="img/loadbar.gif" />
+            </div>
+
+            <div data-templateid="noMatchesFoundContainer">
+                No matches found.
+            </div>
+
+            <div data-templateid="tileErrorContainer">
+                <p class="tileErrorCaption">An error occured.</p>
+                <p class="tileErrorMessage"></p>
+            </div>
+
+            <div data-templateid="tileWelcomeContainer" class="tileWelcomeContainer">
+                <span id="welcomeSpan">WELCOME.</span>
+                Let's start with a search.<br />
+                Maybe you want to
+                <a class="tileWelcomeSettingsLink" href="#">adjust which Elasticsearch server to use</a>
+                first.
+            </div>
+
+            <div data-templateid="emailContainer" class="emailContainer">
+                <div class="tileEmailReferences">
+                    <div class="tileEmailReferencesLink">
+                        <img class="tileEmailReferencesLinkImage" title="Show/hide references to other emails" src="img/ico_link.svg" />
+                    </div>
+                    <div class="tileEmailReferencesList collapsed">
+                        <div class="keyHighlight">references:</div>
+                        <div class="tileEmailDoesReferenceList"></div>
+                        <div class="keyHighlight">referenced by:</div>
+                        <div class="tileEmailIsReferencedList">
+                            <img class="tileEmailIsReferencedListLoading" src="img/throbber_small.gif" />
+                        </div>
+                    </div>
+                </div>
+                <div class="tileEmailMainDiv">
+                    <div class="tileEmailMsgId"></div>
+                    <div class="tileEmailMailbox"></div>
+                    <div class="tileEmailHeader"></div>
+                    <div class="tileEmailContentExpander">
+                        <img class="tileEmailContentExpanderImage" title="Show/hide attachments" src="img/ico_expandarrow_down.svg" />
+                    </div>
+                    <div class="tileEmailContent collapsed"></div>
+                </div>
+            </div>
+
+            <div data-templateid="emailSingleContentContainer" class="emailSingleContentContainer">
+                <div class="emailSingleContentCaption">
+                    <span class="emailSingleContentName">Unknown file</span>
+                    <img class="emailSingleContentDownload" title="Download" src="img/ico_save.svg" />
+                </div>
+                <div class="emailSingleContentContent collapsed tileCommonText">
+                    <p class="emailSingleContentContentText"></p>
+                    <p class="emailSingleContentContentFadeOut collapsed">
+                        <img class="emailSingleContentContentFadeOutImage" src="img/ico_expandarrow_down.svg" />
+                    </p>
+                </div>
+            </div>
+
+        </section>
+    </body>
+</html> 

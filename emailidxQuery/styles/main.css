@@ -1,0 +1,372 @@
+/*
+//
+//    emailIdxQuery - A front-end for searching in emails synchronized by emailIdx
+//    Copyright (C) 2015 Paul Hofmann
+//
+//    This program is free software: you can redistribute it and/or modify
+//    it under the terms of the GNU General Public License as published by
+//    the Free Software Foundation, either version 3 of the License, or
+//    (at your option) any later version.
+//
+//    This program is distributed in the hope that it will be useful,
+//    but WITHOUT ANY WARRANTY; without even the implied warranty of
+//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//    GNU General Public License for more details.
+//
+//    You should have received a copy of the GNU General Public License
+//    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+//
+*/
+body
+{
+    background: #becdd7;
+    color: #000;
+    font-family: sans-serif;
+    font-size: 15px;
+}
+
+a:link
+{
+    color: rgb(0, 153, 153);
+    text-decoration: none;
+}
+
+a:visited
+{
+    color: rgb(0, 153, 153);
+    text-decoration: none;
+}
+
+a:hover
+{
+    color: rgb(0, 153, 153);
+    text-decoration: underline;
+}
+
+a:active
+{
+    color: rgb(0, 153, 153);
+    text-decoration: underline;
+}
+
+#hiddenContent
+{
+    display: none;
+}
+
+.basicButton
+{
+    font: 12px sans-serif;
+    color: #000000;
+    border: 1px solid #000000;
+    background-color: rgb(238, 238, 238);
+    width: 120px;
+    padding: 2px;
+    line-height: 130%;
+}
+
+#footer
+{
+    background: #fff;
+    padding: 10px;
+    color: #879baa;
+    font-size: 80%;
+    font-weight: bold;
+}
+
+#settingsBar
+{
+    float: right;
+}
+
+#header
+{
+    background: #fff;
+    padding: 20px;
+}
+
+#headerTitle
+{
+    padding: 10px;
+    margin: 10px;
+    font-size: 150%;
+    font-weight: bold;
+    color: rgb(0, 153, 153);
+    cursor: pointer;
+}
+
+#activateJSMessage
+{
+    padding: 30px;
+}
+
+#settingsLink
+{
+    border-width: 0;
+    height: 35px;
+    width: 35px;
+    cursor: pointer;
+}
+
+#tilesDiv
+{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+#tilesDiv.tilesInRows
+{
+    flex-direction: row;
+    align-content: flex-start;
+    align-items: flex-start;
+}
+
+#tilesDiv.tilesInColumns
+{
+    flex-direction: column;
+    align-content:  stretch;
+    align-items: stretch;
+}
+
+.basicTile
+{
+    background: #fff;
+    padding: 20px;
+    margin: 10px;
+    display: none;
+}
+
+.highlightContainer
+{
+    background-color: rgb(170, 170, 150);
+}
+
+.keyHighlight
+{
+    font-weight: bold;
+}
+
+.tileCaption
+{
+    font-weight: bold;
+    font-size: 130%;
+}
+
+.tileErrorCaption
+{
+    font-weight: bold;
+    font-size: 130%;
+    color: #f00;
+}
+
+.tileEmailMsgId
+{
+    font-size: 70%;
+    font-weight: bold;
+    color: #879baa;
+}
+
+.tileEmailReferences
+{
+    float: right;
+}
+
+.tileEmailMainDiv
+{
+    float: left;
+}
+
+.tileEmailContentExpanderImage
+{
+    cursor: pointer;
+    height: 32px;
+    width: 32px;
+    border-width: 0;
+}
+
+.tileEmailContent
+{
+    display: none;
+}
+
+.tileEmailReferencesLinkImage
+{
+    cursor: pointer;
+    height: 32px;
+    width: 32px;
+    border-width: 0;
+}
+
+.tileEmailReferencesList
+{
+    margin-top: -30px;
+    margin-left: 50px;
+    display: none;
+}
+
+.msgReferenceListItem
+{
+    font-size: 75%;
+}
+
+.msgReferenceListItem.empty
+{
+    font-style: italic;
+    color: #879baa;
+}
+
+.msgReferenceListItem:not(.empty)
+{
+    cursor: pointer;
+}
+
+.msgReferenceListItem:not(.empty):hover
+{
+    text-decoration: underline;
+}
+
+.msgReferenceList
+{
+    list-style: none;
+}
+
+.tileEmailMailbox
+{
+    font-size: 80%;
+    color: #879baa;
+}
+
+.emailSingleContentContainer
+{
+    margin: 10px;
+}
+
+.emailSingleContentCaption
+{
+    background-color: rgb(85, 160, 185);
+    padding: 10px;
+}
+
+.emailSingleContentContent
+{
+    position: relative;
+}
+
+.emailSingleContentContent.collapsed
+{
+    max-height: 120px;
+    overflow: hidden;
+}
+
+.emailSingleContentContent:not(.collapsed)
+{
+    max-height: 100%;
+    overflow: auto;
+}
+
+.emailSingleContentContentFadeOut
+{ 
+    position: absolute; 
+    bottom: 0; left: 0;
+    width: 100%; 
+    text-align: center; 
+    margin: 0;
+    padding-top: 40px;
+
+    cursor: pointer;
+
+    background: rgba(0, 0, 0, 0);
+}
+
+.emailSingleContentContentFadeOut.collapsed
+{
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgb(255, 255, 255));
+}
+
+.emailSingleContentDownload
+{
+    border-width: 0;
+    height: 25px;
+    width: 25px;
+    cursor: pointer;
+    float: right;
+}
+
+
+.emailSingleContentContentFadeOutImage
+{
+    height: 32px;
+    width: 32px;
+    border-width: 0;
+}
+
+#footerLicensesLink:hover
+{
+    text-decoration: underline;
+}
+
+#footerLicensesLink
+{
+    cursor: pointer;
+}
+
+.tileCommonText
+{
+    font-size: 85%;
+}
+
+.tileSubCaption
+{
+    font-weight: bold;
+    font-size: 110%;
+}
+
+#welcomeSpan
+{
+    color: rgb(135, 155, 170);
+    font-weight: bold;
+    font-size: 115%;
+}
+
+.tileWelcomeContainer
+{
+    line-height: 200%;
+}
+
+#esFulltextSearchterm
+{
+    font-size: 110%;
+    border: none;
+    outline: none;
+}
+
+#esSearchSubmit
+{
+    font-size: 120%;
+    background-image: url('../img/ico_search.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 30px;
+    background-color: transparent;
+    border-width: 0;
+    color: rgba(255, 255, 255, 0);
+    cursor: pointer;
+}
+
+#esFulltextSearchCotainer
+{
+    border-style: inset;
+    border-width: 1px;
+    padding: 10px;
+    
+    -webkit-border-radius: 5px;
+    -moz-border-radius:  5px;
+    border-radius: 5px;
+}
+
+#esFulltextSearchterm:focus
+{
+    border: none;
+    outline: none;
+}
